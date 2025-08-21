@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据统计 - 网站导航中心</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <!-- Tailwind 配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        accent: '#8B5CF6',
+                        dark: '#1E293B',
+                        light: '#F8FAFC'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .nav-item {
+                @apply px-4 py-2 rounded-md transition-all duration-200 hover:bg-primary/10 hover:text-primary;
+            }
+            .nav-item.active {
+                @apply bg-primary/10 text-primary font-medium;
+            }
+            .stat-card {
+                @apply bg-white rounded-xl shadow-sm p-6 transition-all duration-300 hover:shadow-md;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
+    <!-- 导航栏 -->
+    <header class="bg-white shadow-sm sticky top-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fa fa-compass text-primary text-2xl"></i>
+                <h1 class="text-xl font-bold text-dark">孟宪喆的个人博客</h1>
+            </div>
+            
+            <!-- 桌面端导航 -->
+            <nav class="hidden md:flex items-center space-x-1">
+                <a href="index.html" class="nav-item">首页</a>
+                <a href="page1.html" class="nav-item ">自我介绍</a>
+                <a href="page2.html" class="nav-item ">我的帖子</a>
+                <a href="page3.html" class="nav-item">讨论空间</a>
+                <a href="page4.html" class="nav-item active">平台规则</a>
+            </nav>
+            
+            <!-- 移动端菜单按钮 -->
+            <button id="menuBtn" class="md:hidden text-gray-600 focus:outline-none">
+                <i class="fa fa-bars text-xl"></i>
+            </button>
+        </div>
+        
+        <!-- 移动端导航菜单 -->
+        <div id="mobileMenu" class="md:hidden hidden bg-white border-t">
+            <div class="container mx-auto px-4 py-2 flex flex-col space-y-1">
+                <a href="index.html" class="nav-item py-3">首页</a>
+                <a href="page1.html" class="nav-item py-3">自我介绍</a>
+                <a href="page2.html" class="nav-item py-3">我的帖子</a>
+                <a href="page3.html" class="nav-item py-3">讨论空间</a>
+                <a href="page4.html" class="nav-item active py-3">平台规则</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="flex-grow container mx-auto px-4 py-8">
+	<div class="bg-white rounded-xl border border-gray-200 p-4 md:p-4.5 shadow-sm">
+	<p>
+		欢迎来到我的个人博客！👋在欢迎大家到来的同时，为维护本平台的安全，同时降低博主运维工作的强度，有几点要求需要明确告知大家。😸
+		<br><br>
+		第一，本平台考虑了诸多攻击的可能，然而千密一疏，可能会出现一些网安的漏洞。如果你发现了0day bug，祈求你及时联系博主！这真的很有用！谢谢！😽
+		<br>
+		第二，在本平台的帖子都需要经过审查，请不要发布违规帖子。🙅‍♂️
+		<br>
+		第三，评论区如果出现发帖不可控，我会手动关闭评论区。👮🏼
+		<br>
+		就是这些！祝大家玩的愉快！
+	</p>
+	</div>
+	</main>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-gray-300 py-12 mt-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fa fa-compass text-primary text-xl"></i>
+                        <h3 class="text-lg font-semibold text-white">网站导航中心</h3>
+                    </div>
+                    <p class="text-gray-400 mb-4">便捷访问</p>
+					<div class="flex space-x-4">
+					    <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fa fa-facebook"></i></a>
+					    <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fa fa-twitter"></i></a>
+					    <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fa fa-instagram"></i></a>
+					    <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fa fa-linkedin"></i></a>
+					</div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">页面链接</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">首页</a></li>
+                        <li><a href="page1.html" class="text-gray-400 hover:text-white transition-colors">自我介绍</a></li>
+                        <li><a href="page2.html" class="text-gray-400 hover:text-white transition-colors">我的帖子</a></li>
+                        <li><a href="page3.html" class="text-gray-400 hover:text-white transition-colors">讨论空间</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">联系方式</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fa fa-map-marker mt-1 mr-3 text-primary"></i>
+                            <span class="text-gray-400">华中科技大学 人工智能与自动化学院</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-phone mr-3 text-primary"></i>
+                            <span class="text-gray-400">+86 188 3176 2122</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-envelope mr-3 text-primary"></i>
+                            <span class="text-gray-400">U202410203@hust.edu.cn</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-500">
+                <p>&copy; 2025 孟宪喆的个人博客. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 移动端菜单切换
+        document.getElementById('menuBtn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 10) {
+                header.classList.add('py-2', 'shadow');
+                header.classList.remove('py-3', 'shadow-sm');
+            } else {
+                header.classList.add('py-3', 'shadow-sm');
+                header.classList.remove('py-2', 'shadow');
+            }
+        });
+        
+
+    </script>
+</body>
+</html>
